@@ -11,7 +11,7 @@ import { useProgress } from '@react-three/drei'
 import * as THREE from 'three'
 
 function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (name: string) => void }) {
-    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo8.glb') as any
+    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo11.glb') as any
     const { camera, size, gl } = useThree()
     const shakeRef = useRef(0)
     const basePosition = useRef(new THREE.Vector3())

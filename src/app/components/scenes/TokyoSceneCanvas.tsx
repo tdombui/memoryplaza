@@ -2,16 +2,19 @@
 
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { Suspense } from 'react'
-import Loader from '../components/Loader'
-import SceneFadeOverlay from '../components/SceneFadeOverlay'
-import { useGLTF, OrbitControls } from '@react-three/drei'
+import Loader from '../Loader'
+import SceneFadeOverlay from '../SceneFadeOverlay'
+import { useGLTF, Gltf, OrbitControls } from '@react-three/drei'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useProgress } from '@react-three/drei'
 import * as THREE from 'three'
+import Clock from '../clocks/TokyoClock'
+import { ArrowLeft } from 'lucide-react'
 
 function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (name: string) => void }) {
-    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo11.glb') as any
+    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo11.glb') as GLTF
+
     const { camera, size, gl } = useThree()
     const shakeRef = useRef(0)
     const basePosition = useRef(new THREE.Vector3())
@@ -68,8 +71,7 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
                 console.warn(`⚠️ Could not find object named "${name}"`)
             }
         })
-
-        console.log('📦 Registered Clickables:', clickableObjects.current.map((o) => o.name))
+        // console.log('📦 Registered Clickables:', clickableObjects.current.map((o) => o.name))
     }, [scene])
 
     useEffect(() => {
@@ -89,7 +91,7 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
                     let obj = hit.object
                     while (obj && obj.parent) {
                         if (interactiveNames.includes(obj.name)) {
-                            console.log('✅ Clicked:', obj.name)
+                            // console.log('✅ Clicked:', obj.name)
                             onSelect(obj.name)
                             return
                         }
@@ -106,13 +108,13 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
     return <primitive object={scene} />
 }
 
-export default function SceneCanvas() {
+export default function TokyoSceneCanvas() {
     const [cameraName, setCameraName] = useState('Camera_Main')
     const [selectedObject, setSelectedObject] = useState<string | null>(null)
     const { progress } = useProgress()
     const isFullyLoaded = progress === 100
 
-    const objectInfo: Record<string, { title: string; description: string }> = {
+    const objectInfo: Record<string, { title: string; description: string; url?: string }> = {
         CanMatchMatch: {
             title: 'Match Match Soda Can',
             description: 'A delicious grapefruit soda with vitamins and minerals.',
@@ -136,6 +138,7 @@ export default function SceneCanvas() {
         SuTuDa: {
             title: '石狮子 ("shí shīzǐ")',
             description: 'A lion made of stone watches the plaza.',
+            url: 'https://poly.cam/capture/d60c978f-94e4-4c6b-a019-cf5dd93b7df9',
         },
     }
     const closeCard = () => setSelectedObject(null)
@@ -144,7 +147,6 @@ export default function SceneCanvas() {
         <div className="relative w-screen h-screen overflow-hidden">
             <AnimatePresence mode="wait">
                 <SceneFadeOverlay />
-
                 {selectedObject && objectInfo[selectedObject] && (
                     <motion.div
                         key={selectedObject}
@@ -155,7 +157,7 @@ export default function SceneCanvas() {
                         exit={{ opacity: 0 }}
                     >
                         <motion.div
-                            className="bg-black/90 text-white p-6 rounded-lg max-w-md relative shadow-[1px_5px_30px_rgba(0,0,0,0.9)]"
+                            className="bg-black/90 text-white p-10 rounded-lg max-w-md relative shadow-[1px_5px_30px_rgba(0,0,0,0.9)] select-none"
                             onClick={(e) => e.stopPropagation()}
                             initial={{ y: 50, opacity: 0, scale: 0.5 }}
                             animate={{ y: 0, opacity: 1, scale: 1 }}
@@ -164,16 +166,27 @@ export default function SceneCanvas() {
                         >
                             <button
                                 onClick={closeCard}
-                                className="absolute top-2 right-2 text-white hover:text-emerald-400 text-xl"
+                                className="absolute top-2 right-4 text-white hover:text-emerald-400 text-xl"
                             >
                                 ×
                             </button>
                             <h2 className="text-2xl font-bold mb-2 text-emerald-300">
                                 {objectInfo[selectedObject].title}
                             </h2>
-                            <p className="text-sm text-gray-200">
+                            <p className="text-sm mt-4 text-gray-200">
                                 {objectInfo[selectedObject].description}
                             </p>
+                            {objectInfo[selectedObject].url && (
+                                <a
+                                    href={objectInfo[selectedObject].url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="mt-4 inline-block text-sm text-emerald-200 underline hover:text-emerald-300 hover:blur-[0.9px]"
+                                >
+                                    View or Download 3D Model →
+                                </a>
+                            )}
+
                         </motion.div>
                     </motion.div>
                 )}
@@ -188,18 +201,28 @@ export default function SceneCanvas() {
                         hidden: {},
                         visible: {
                             transition: {
-                                staggerChildren: 0.12,
-                                delayChildren: 3.4
+                                staggerChildren: 0.1,
+                                delayChildren: 1.2
                             }
                         }
                     }}
                 >
-                    <motion.h2
-                        className="select-none text-3xl font-bold mb-3 px-4 py-2 rounded drop-shadow bg-black/90 text-yellow-300 hover:blur-[0.8px]"
-                        style={{ fontFamily: 'Apple Garamond' }}
-                    >
-                        Memory Plaza—TOKYO
-                    </motion.h2>
+                    <div className="flex items-center space-x-3">
+                        <a
+                            href="/"
+                            className="bg-black/90 hover:bg-black  text-emerald-200 hover:text-emerald-300 rounded-xl px-4 py-3 transition drop-shadow  hover:shadow-[0_0_4px_rgba(0,0,1,0.7)]"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </a>
+                        <motion.h2
+                            className="select-none text-3xl font-bold px-4 py-2 rounded drop-shadow bg-black/90 text-emerald-200 hover:bg-black hover:shadow-[0_0_4px_rgba(0,0,1,0.7)]"
+                            style={{ fontFamily: 'Apple Garamond' }}
+                        >
+                            Memory Plaza—TOKYO
+                        </motion.h2>
+                    </div>
+
+                    <Clock />
                     {[{ label: 'Plaza', name: 'Camera_Main' }, { label: 'ライオンの足元にあるソーダ缶', name: 'Camera_Lion_Cans' }, { label: 'Newspapers', name: 'Camera_Newspaper' }, { label: 'Cans', name: 'Camera_Cans' }, { label: 'Terrain', name: 'Camera_Terrain' }, { label: 'Vending Machine', name: 'Camera_Vending_3' }].map((item) => {
                         const isSelected = cameraName === item.name
                         return (
@@ -213,13 +236,14 @@ export default function SceneCanvas() {
                                 }}
                             >
                                 <span className="flex items-center space-x-2">
-                                    {isSelected && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 300, damping: 20 }} className="text-yellow-300">▶</motion.span>}
+                                    {isSelected && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 100, damping: 100 }} className="text-yellow-300">▶</motion.span>}
                                     <span>{item.label}</span>
                                 </span>
                             </motion.button>
                         )
                     })}
                 </motion.div>
+
             )}
 
             <Canvas shadows>
@@ -237,17 +261,20 @@ export default function SceneCanvas() {
                     maxAzimuthAngle={0.15}
                     enablePan={true}
                 />
+
             </Canvas>
 
             <footer className="absolute bottom-8 w-full text-center z-10">
+
                 <a
                     href="https://dombui.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-200 bg-black/30 font-mono text-md transition duration-300 hover:text-blur-xl hover:text-emerald-300 hover:bg-black/70 px-3 py-1 rounded blur-[0.7px] hover:blur-[0.3px]"
+                    className="text-emerald-200  font-mono text-md transition duration-300 hover:text-blur-xl hover:text-emerald-300 hover:bg-black/70 px-3 py-1 rounded blur-[0.4px] hover:blur-[0.1px]"
                 >
-                    © {new Date().getFullYear()} dombui — all rights reserved
+                    © dombui — all rights reserved
                 </a>
+
             </footer>
         </div>
     )

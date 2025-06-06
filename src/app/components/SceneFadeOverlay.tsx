@@ -10,7 +10,7 @@ export default function SceneFadeOverlay() {
 
     useEffect(() => {
         if (progress >= 100) {
-            const timeout = setTimeout(() => setShowOverlay(false), 1000) // wait for fade
+            const timeout = setTimeout(() => setShowOverlay(false), 2000) // wait for fade
             return () => clearTimeout(timeout)
         }
     }, [progress])
@@ -23,7 +23,7 @@ export default function SceneFadeOverlay() {
                     initial={{ opacity: 1 }}
                     animate={{ opacity: 0 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 1.2, ease: 'easeOut' }}
+                    transition={{ duration: 2.2, ease: 'easeOut' }}
                 />
             )}
         </AnimatePresence>

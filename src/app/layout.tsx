@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Memory Plaza—Tokyo",
-  description: "An interactive 3D scene made of 3D scans of Tokyo.",
+  title: "Memory Plaza",
+  description: "Interactive 3D scenes made of 3D scans and low-poly models.",
 };
 
 export default function RootLayout({

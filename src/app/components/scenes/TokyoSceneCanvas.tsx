@@ -1,15 +1,14 @@
 'use client'
+import * as THREE from 'three'
 
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
-import { Suspense } from 'react'
-import Loader from '../Loader'
-import SceneFadeOverlay from '../SceneFadeOverlay'
-import { useGLTF, Gltf, OrbitControls } from '@react-three/drei'
-import { useEffect, useRef, useState } from 'react'
+import { useGLTF, OrbitControls, useProgress } from '@react-three/drei'
+import { useEffect, useRef, useState, Suspense } from 'react'
+import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useProgress } from '@react-three/drei'
-import * as THREE from 'three'
+import Loader from '../Loader'
 import Clock from '../clocks/TokyoClock'
+import SceneFadeOverlay from '../SceneFadeOverlay'
 import { ArrowLeft } from 'lucide-react'
 
 function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (name: string) => void }) {
@@ -209,12 +208,12 @@ export default function TokyoSceneCanvas() {
                     }}
                 >
                     <div className="flex items-center space-x-3">
-                        <a
+                        <Link
                             href="/"
                             className="bg-black/90 hover:bg-black  text-emerald-200 hover:text-emerald-300 rounded-xl px-4 py-3 transition drop-shadow  hover:shadow-[0_0_4px_rgba(0,0,1,0.7)]"
                         >
                             <ArrowLeft className="w-6 h-6" />
-                        </a>
+                        </Link>
                         <motion.h2
                             className="select-none text-3xl font-bold px-4 py-2 rounded drop-shadow bg-black/90 text-emerald-200 hover:bg-black hover:shadow-[0_0_4px_rgba(0,0,1,0.7)]"
                             style={{ fontFamily: 'Apple Garamond' }}

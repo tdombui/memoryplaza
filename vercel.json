@@ -1,0 +1,3 @@
+{
+    "buildCommand": "./scripts/fetch-lfs.sh && npm run build"
+}

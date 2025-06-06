@@ -13,7 +13,7 @@ import Clock from '../clocks/TokyoClock'
 import { ArrowLeft } from 'lucide-react'
 
 function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (name: string) => void }) {
-    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo11.glb') as GLTF
+    const { scene, cameras } = useGLTF('/3d/memoryplaza-tokyo11.glb')
 
     const { camera, size, gl } = useThree()
     const shakeRef = useRef(0)
@@ -24,7 +24,7 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
     const interactiveNames = ['CanMatchMatch', 'CanMatchMatchSingle', 'CanMatchMatchSingle2', 'CanMetsBlack', 'Newspapers', 'SuTuDa']
 
     useEffect(() => {
-        const selected = cameras.find((c: any) => c.name === cameraName)
+        const selected = cameras.find((c) => (c as THREE.Camera).name === cameraName) as THREE.PerspectiveCamera | undefined
         if (selected) {
             camera.position.copy(selected.position)
             camera.quaternion.copy(selected.quaternion)
@@ -62,11 +62,12 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
             const group = scene.getObjectByName(name)
             if (group) {
                 clickableObjects.current.push(group)
-                group.traverse((child: any) => {
+                group.traverse((child: THREE.Object3D) => {
                     if ((child as THREE.Mesh).isMesh) {
                         clickableObjects.current.push(child)
                     }
                 })
+
             } else {
                 console.warn(`⚠️ Could not find object named "${name}"`)
             }

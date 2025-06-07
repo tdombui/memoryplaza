@@ -1,11 +1,8 @@
-// src/app/MainMenuPage.tsx
 'use client'
-
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import MainMenuClock from './components/clocks/MainMenuClock'
 import MainMenuBackground from './components/ui/MainMenuBackground'
-
 export default function MainMenuPage() {
     const locations = [
         { name: 'Tokyo', path: '/tokyo', bg: 'bg-emerald-500', active: true, flag: '🇯🇵' },
@@ -13,7 +10,6 @@ export default function MainMenuPage() {
         { name: 'Xiamen', path: '/xiamen', bg: 'bg-yellow-500', active: false, flag: '🇨🇳' },
         { name: 'Los Angeles', path: '/losangeles', bg: 'bg-pink-600', active: false, flag: '🇺🇸' },
     ]
-
     return (
         <div className="relative">
             <a
@@ -28,26 +24,21 @@ export default function MainMenuPage() {
             >
                 ~
             </a>
-
             <div className="relative w-screen h-screen overflow text-white font-mono flex items-center justify-center">
                 <MainMenuBackground />
-
                 <motion.div
                     className="z-10 space-y-6 text-center"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1, duration: 1.5 }}
                 >
-
                     <h1
                         className="text-7xl font-bold text-emerald-50 select-none drop-shadow-[0_0_8px_rgba(94,252,232,0.9)] mt-4 animate-glow"
                         style={{ fontFamily: 'Apple Garamond' }}
                     >
                         Memory Plaza
                     </h1>
-
                     <MainMenuClock />
-
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                         {locations.map((loc) =>
                             loc.active ? (
@@ -66,20 +57,18 @@ export default function MainMenuPage() {
                             ) : (
                                 <div
                                     key={loc.name}
-                                    className={`px-2 py-4 rounded-xl text-center ${loc.bg} text-white opacity-55 cursor-not-allowed select-none hover:blur-sm`}
+                                    className={`px-2 py-4 rounded-xl text-center ${loc.bg} text-white opacity-45 cursor-not-allowed select-none blur-[.75px] hover:blur-sm`}
                                     title="Under Construction"
                                 >
                                     <h2 className="text-xl font-semibold">
                                         {loc.name} ({loc.flag})
                                     </h2>
-                                    <p className="text-sm opacity-80">Under Construction</p>
+                                    <p className="text-sm ">Under Construction</p>
                                 </div>
                             )
                         )}
                     </div>
-
                 </motion.div>
-
                 <footer className="absolute bottom-8 w-full text-center z-10">
                     <motion.a
                         href="https://dombui.com"

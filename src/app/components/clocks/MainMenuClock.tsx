@@ -27,6 +27,6 @@ export default function MainMenuClock() {
     }, [])
 
     return (
-        <p className="text-emerald-100 text-sm tracking-wide select-none"><a className="font-bold">Local time</a>: {timeString}</p>
+        <p className="text-emerald-50 text-sm tracking-wide select-none"><a className="font-bold">Local time</a>: {timeString}</p>
     )
 }

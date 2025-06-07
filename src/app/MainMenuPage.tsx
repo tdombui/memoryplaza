@@ -38,9 +38,9 @@ export default function MainMenuPage() {
                         loc.active ? (
                             <Link key={loc.name} href={loc.path}>
                                 <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className={`px-6 py-4 rounded-lg text-center ${loc.bg} text-white cursor-pointer select-none hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] transition-shadow duration-300 ease-in-out hover:bg-black/25`}
+                                    whileHover={{ scale: 0.97 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className={`px-6 py-4 rounded-xl text-center ${loc.bg} text-white cursor-pointer select-none hover:shadow-[0_0_20px_rgba(255,255,255,0.9)] transition-shadow duration-300 ease-in-out hover:bg-emerald-500/70`}
                                 >
                                     <h2 className="text-xl font-semibold">
                                         {loc.name} ({loc.flag})
@@ -51,7 +51,7 @@ export default function MainMenuPage() {
                         ) : (
                             <div
                                 key={loc.name}
-                                className={`px-6 py-4 rounded-lg text-center ${loc.bg} text-white opacity-40 cursor-not-allowed select-none`}
+                                className={`px-2 py-4 rounded-xl text-center ${loc.bg} text-white opacity-55 cursor-not-allowed select-none hover:blur-sm`}
                                 title="Under Construction"
                             >
                                 <h2 className="text-xl font-semibold">

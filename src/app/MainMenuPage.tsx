@@ -40,7 +40,7 @@ export default function MainMenuPage() {
                 >
 
                     <h1
-                        className="text-7xl font-bold text-emerald-50 select-none drop-shadow-[0_0_8px_rgba(94,252,232,0.9)] animate-glow"
+                        className="text-7xl font-bold text-emerald-50 select-none drop-shadow-[0_0_8px_rgba(94,252,232,0.9)] mt-4 animate-glow"
                         style={{ fontFamily: 'Apple Garamond' }}
                     >
                         Memory Plaza
@@ -81,14 +81,17 @@ export default function MainMenuPage() {
                 </motion.div>
 
                 <footer className="absolute bottom-8 w-full text-center z-10">
-                    <a
+                    <motion.a
                         href="https://dombui.com"
                         target="_blank"
                         rel="noopener noreferrer"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 2, duration: 1.5 }}
                         className="text-emerald-50 text-sm px-3 py-1 rounded hover:text-emerald-300 hover:bg-black/20"
                     >
                         © dombui — all rights reserved
-                    </a>
+                    </motion.a>
                 </footer>
             </div>
         </div>

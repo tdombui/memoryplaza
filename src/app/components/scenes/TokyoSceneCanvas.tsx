@@ -210,7 +210,7 @@ export default function TokyoSceneCanvas() {
                     <div className="flex items-center space-x-3">
                         <Link
                             href="/"
-                            className="bg-black/90 hover:bg-black  text-emerald-200 hover:text-emerald-300 rounded-xl px-4 py-3 transition drop-shadow  hover:shadow-[0_0_4px_rgba(0,0,1,0.7)]"
+                            className="bg-black/90 hover:bg-black  text-emerald-200 hover:text-emerald-300 rounded-xl px-4 py-3 transition drop-shadow  hover:shadow-[0_2px_8px_rgba(0,0,1,0.9)]"
                         >
                             <ArrowLeft className="w-6 h-6" />
                         </Link>
@@ -221,7 +221,6 @@ export default function TokyoSceneCanvas() {
                             Memory Plaza—TOKYO
                         </motion.h2>
                     </div>
-
                     <Clock />
                     {[{ label: 'Plaza', name: 'Camera_Main' }, { label: 'ライオンの足元にあるソーダ缶', name: 'Camera_Lion_Cans' }, { label: 'Newspapers', name: 'Camera_Newspaper' }, { label: 'Cans', name: 'Camera_Cans' }, { label: 'Terrain', name: 'Camera_Terrain' }, { label: 'Vending Machine', name: 'Camera_Vending_3' }].map((item) => {
                         const isSelected = cameraName === item.name

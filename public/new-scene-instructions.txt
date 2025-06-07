@@ -1,0 +1,127 @@
+Quick Guide to Add & Deploy New Memory Plazas (e.g., Taipei, Xiamen)
+
+#To push changes to GitHub
+
+git add .
+git commit -m "Update: [brief description of change]"
+git push
+
+
+---
+
+#To upload a new scene:
+
+🧩 1. Prepare Your .glb File
+Make sure your .glb is:
+Optimized (under ~100MB ideally)
+Exported from Blender with proper camera objects
+Named clearly: e.g., memoryplaza-taipei.glb
+
+Put it in:
+
+#bash
+/public/3d/memoryplaza-taipei.glb
+
+---
+
+🔀 2. Track with Git LFS (once only if not already)
+If not already tracked:
+
+#bash
+git lfs track "*.glb"
+Then:
+
+#bash
+git add .gitattributes
+
+---
+
+📦 3. Add Your .glb File
+#bash
+git add public/3d/memoryplaza-taipei.glb
+git commit -m "Add Taipei scene .glb"
+git push
+
+---
+
+🛠️ 4. Duplicate and Modify the Scene Component
+Create a new scene canvas:
+
+swift
+Copy
+Edit
+/src/app/components/scenes/TaipeiSceneCanvas.tsx
+You can copy from TokyoSceneCanvas.tsx and change:
+
+All references to Tokyo → Taipei
+
+Update the GLB path:
+
+tsx
+Copy
+Edit
+useGLTF('/3d/memoryplaza-taipei.glb')
+Change the camera names and interactive object names as needed
+
+---
+
+🧭 5. Create the Route Page
+Create:
+
+swift
+Copy
+Edit
+/src/app/taipei/page.tsx
+Example:
+
+tsx
+Copy
+Edit
+import dynamic from 'next/dynamic'
+
+export const metadata = {
+  title: 'Memory Plaza — Taipei',
+}
+
+const TaipeiSceneCanvas = dynamic(() => import('../../components/scenes/TaipeiSceneCanvas'), { ssr: false })
+
+export default function TaipeiPage() {
+  return <TaipeiSceneCanvas />
+}
+🧪 6. Test Locally
+bash
+Copy
+Edit
+npm run dev
+Visit http://localhost:3000/taipei
+
+Make sure the model loads properly.
+
+🚀 7. Push to GitHub & Redeploy on Vercel
+bash
+Copy
+Edit
+git add .
+git commit -m "Add Taipei scene"
+git push
+Vercel will auto-build and deploy it.
+
+Test at:
+
+arduino
+Copy
+Edit
+https://memoryplaza.vercel.app/taipei
+📘 Notes for Future Scenes (Xiamen, LA, etc.)
+Repeat steps 1–7 for each new city
+
+Keep a consistent naming convention:
+e.g., memoryplaza-city.glb, /[city]/page.tsx, CitySceneCanvas.tsx
+
+Reuse UI components but update:
+
+Object names
+
+Scene title
+
+Info cards (title, description, 3D model link)

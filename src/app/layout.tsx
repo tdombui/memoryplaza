@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Memory Plaza",
-  description: "Interactive 3D scenes made of 3D scans and low-poly models.",
+  description: "Interactive 3D scenes made of 3D scans, low-poly models, and photos.",
 };
 
 export default function RootLayout({

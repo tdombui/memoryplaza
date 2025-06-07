@@ -15,7 +15,7 @@ export default function MainMenuPage() {
     ]
 
     return (
-        <div className="relative w-screen h-screen overflow-hidden text-white font-mono flex items-center justify-center">
+        <div className="relative w-screen h-screen overflow text-white font-mono flex items-center justify-center">
             <MainMenuBackground />
 
             <motion.div

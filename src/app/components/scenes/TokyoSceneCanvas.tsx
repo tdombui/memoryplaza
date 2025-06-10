@@ -235,7 +235,7 @@ export default function TokyoSceneCanvas() {
                                 }}
                             >
                                 <span className="flex items-center space-x-2">
-                                    {isSelected && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 100, damping: 100 }} className="text-yellow-300">▶</motion.span>}
+                                    {isSelected && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.3 }} className="text-yellow-300">▶</motion.span>}
                                     <span>{item.label}</span>
                                 </span>
                             </motion.button>

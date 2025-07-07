@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import MainMenuClock from './components/clocks/MainMenuClock'
 import MainMenuBackground from './components/ui/MainMenuBackground'
+import SysRequirements from './components/ui/SysRequirements'
 export default function MainMenuPage() {
     const locations = [
         { name: 'Tokyo', path: '/tokyo', bg: 'bg-emerald-500', active: true, flag: '🇯🇵' },
@@ -69,6 +70,8 @@ export default function MainMenuPage() {
                         )}
                     </div>
                 </motion.div>
+
+
                 <footer className="absolute bottom-8 w-full text-center z-10">
                     <motion.a
                         href="https://dombui.com"
@@ -82,6 +85,7 @@ export default function MainMenuPage() {
                         © dombui — all rights reserved
                     </motion.a>
                 </footer>
+                {/* <SysRequirements /> */}
             </div>
         </div>
     )

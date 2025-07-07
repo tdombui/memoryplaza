@@ -145,35 +145,28 @@ export default function TokyoSceneCanvas() {
 
     return (
         <div className="relative w-screen h-screen overflow-hidden">
-            <AnimatePresence mode="wait">
-                <SceneFadeOverlay />
+            <SceneFadeOverlay />
+            <AnimatePresence>
                 {selectedObject && objectInfo[selectedObject] && (
                     <motion.div
                         key={selectedObject}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]"
-                        onClick={closeCard}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2 }}
                     >
-                        <motion.div
-                            className="bg-black/90 text-white p-10 rounded-lg max-w-md relative shadow-[1px_5px_30px_rgba(0,0,0,0.9)] select-none"
-                            onClick={(e) => e.stopPropagation()}
-                            initial={{ y: 50, opacity: 0, scale: 0.5 }}
-                            animate={{ y: 0, opacity: 1, scale: 1 }}
-                            exit={{ y: 50, opacity: 0, scale: 0.5 }}
-                            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                        >
+                        <div className="bg-black/90 text-white p-6 rounded-lg max-w-sm shadow-lg border border-emerald-500/20">
                             <button
                                 onClick={closeCard}
-                                className="absolute top-2 right-4 text-white hover:text-emerald-400 text-xl"
+                                className="absolute top-2 right-3 text-white hover:text-emerald-400 text-lg"
                             >
                                 ×
                             </button>
-                            <h2 className="text-2xl font-bold mb-2 text-emerald-300">
+                            <h3 className="text-xl font-bold mb-2 text-emerald-300">
                                 {objectInfo[selectedObject].title}
-                            </h2>
-                            <p className="text-sm mt-4 text-gray-200">
+                            </h3>
+                            <p className="text-sm text-gray-200 mb-3">
                                 {objectInfo[selectedObject].description}
                             </p>
                             {objectInfo[selectedObject].url && (
@@ -181,13 +174,12 @@ export default function TokyoSceneCanvas() {
                                     href={objectInfo[selectedObject].url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="mt-4 inline-block text-sm text-emerald-200 underline hover:text-emerald-300 hover:blur-[0.9px]"
+                                    className="text-sm text-emerald-200 underline hover:text-emerald-300"
                                 >
-                                    View or Download 3D Model →
+                                    View 3D Model →
                                 </a>
                             )}
-
-                        </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

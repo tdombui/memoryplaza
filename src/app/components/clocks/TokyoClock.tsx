@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
+const JAPANESE_MONTHS = [
+    '', '一月', '二月', '三月', '四月', '五月', '六月',
+    '七月', '八月', '九月', '十月', '十一月', '十二月'
+]
+
 export default function Clock() {
     const [tokyoDateTime, setTokyoDateTime] = useState<string>('')
-
-    const JAPANESE_MONTHS = [
-        '', '一月', '二月', '三月', '四月', '五月', '六月',
-        '七月', '八月', '九月', '十月', '十一月', '十二月'
-    ]
 
     useEffect(() => {
         const updateTime = () => {

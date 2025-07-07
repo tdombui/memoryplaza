@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import MainMenuClock from './components/clocks/MainMenuClock'
 import MainMenuBackground from './components/ui/MainMenuBackground'
-import SysRequirements from './components/ui/SysRequirements'
 export default function MainMenuPage() {
     const locations = [
         { name: 'Tokyo', path: '/tokyo', bg: 'bg-emerald-500', active: true, flag: '🇯🇵' },

@@ -72,7 +72,7 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
             }
         })
         // console.log('📦 Registered Clickables:', clickableObjects.current.map((o) => o.name))
-    }, [scene])
+    }, [scene, interactiveNames])
 
     useEffect(() => {
         const handleClick = (event: MouseEvent) => {
@@ -103,7 +103,7 @@ function TokyoScene({ cameraName, onSelect }: { cameraName: string, onSelect: (n
 
         gl.domElement.addEventListener('click', handleClick)
         return () => gl.domElement.removeEventListener('click', handleClick)
-    }, [camera, gl, onSelect])
+    }, [camera, gl, onSelect, interactiveNames])
 
     return <primitive object={scene} />
 }
